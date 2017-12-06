@@ -1,7 +1,0 @@
-<button id="back" (click)="goBack()"> Back </button>
-<form class="todo-form" (ngSubmit)="onSubmit(); todoForm.reset()" #todoForm="ngForm">
-  <input name="title" [(ngModel)]="title" placeholder="add todo" required>
-  <button [disabled]="todoForm.form.invalid"> Add </button>
-</form>
-
-<todo-list> </todo-list>
