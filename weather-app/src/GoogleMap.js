@@ -1,25 +1,33 @@
-import { WIDTH, HEIGHT, FOUND_LOCATION_MESSAGE } from './const/defaultCoordinates.js';
-import { SERVICE_ERROR, BROWSER_ERROR } from './const/error'
+import {WIDTH, HEIGHT} from './const/defaultCoordinates.const.js';
+import {SERVICE_ERROR, BROWSER_ERROR} from './const/error.const'
 import {ApiService} from './ApiService';
 import {MarkerGenerator} from './MarkerGenerator'
+import {MAX_TEMPERATURE} from './const/weatherApiConfig.const';
+import {BLUE_COLOR_ANGLE, TIME_TO_REDROW_MARKER} from './const/markerParam.const';
 
 export class GoogleMap {
 
     constructor() {
-        this.currentData = new ApiService();
+        this.apiService = new ApiService();
     }
 
     initMap() {
-        this.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 6,
-            minZoom: 2,
-            maxZoom: 10,
-            center: new google.maps.LatLng(WIDTH, HEIGHT),
-            mapTypeId: 'satellite'
-        });
+        this.map = this.setMap(); //RENAMEEEEE
         this.markerGenerator = new MarkerGenerator(this.map);
         this.postLocation();
         this.map.addListener('idle', this.redrawCircles());
+    }
+
+
+    //rename!
+    setMap() {
+        return new google.maps.Map(document.getElementById('map'), {
+            zoom: 6,
+            minZoom: 2,
+            maxZoom: 10,
+            mapTypeId: 'satellite',
+            center: new google.maps.LatLng(WIDTH, HEIGHT)
+        });
     }
 
     redrawCircles() {
@@ -28,8 +36,8 @@ export class GoogleMap {
             clearTimeout(timer);
             timer = setTimeout(() => {
                 this.getCoords();
-                this.markerGenerator.removeCircles(this.markerGenerator.markersArray)
-            }, 500);
+                this.markerGenerator.removeCircles()
+            }, TIME_TO_REDROW_MARKER);
         }
     }
 
@@ -40,26 +48,26 @@ export class GoogleMap {
     }
 
     getPoints(urlParam) {
-        this.currentData.getWeatherInfo(urlParam)
-            .then(response =>
-                response.map((dataPoint) => ({
-                    city: dataPoint.city,
-                    coordinates: dataPoint.coord,
-                    temperature: dataPoint.temp,
-                    color: this.setColor(dataPoint.temp)
-                }))
+        this.apiService.getWeatherInfo(urlParam)
+            .then(weatherInfo =>
+                weatherInfo.forEach(dataPoint => {
+                    const circle = {
+                        city: dataPoint.city,
+                        coordinates: dataPoint.coord,
+                        temperature: dataPoint.temp,
+                        color: this.setColor(dataPoint.temp)
+                    };
+                    this.markerGenerator.createMarker(circle)
+                })
             )
-            .then(response => {
-                for (let circle in response) {
-                    this.markerGenerator.createCircle(response[circle]);
-                }
-            })
     }
 
+    //RENAME
+
     setColor(temperature) {
-        const weight = Math.abs(temperature) / 50;
-        const hue = ((1 - weight) * 250).toString(10);
-        return `hsl(${hue}, 100%, 50%)`
+        const weight = Math.abs(temperature) / MAX_TEMPERATURE;
+        const colorTone = ((1 - weight) * BLUE_COLOR_ANGLE).toString();
+        return `hsl(${colorTone}, 100%, 50%)`
     };
 
     postLocation() {
