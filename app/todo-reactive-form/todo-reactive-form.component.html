@@ -1,5 +1,5 @@
 <h1> New form </h1>
-<form [formGroup]="todoForm" novalidate (ngSubmit)="submit(todoForm.value); todoForm.reset()">
+<div [formGroup]="todoForm">
   <label> Todo:
     <input formControlName="todoName">
   </label>
@@ -16,8 +16,8 @@
       </select>
     </label>
   </div>
-  <button> submit </button>
-</form>
+  <button (click)="submit()"> submit </button>
+</div>
 
 <div *ngIf="!todoForm.get('todoName').valid"> The form is {{todoForm.get('todoName').status}} </div>
 <div *ngIf="todoForm.get('todoName').hasError('required')"> Name is required </div>

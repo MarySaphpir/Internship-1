@@ -7,8 +7,11 @@ import {Component} from '@angular/core';
 })
 
 export class DashboardComponent {
+  color = '';
 
-  constructor() {
+  setColor(event: any) {
+    const target = event.target;
+    this.color = target.value;
   }
 
 }

@@ -1,11 +1,11 @@
 export class Todo {
-  id: number = 0;
-  todoName: string = '';
+  id = 0;
+  todoName = '';
   comment: Comment[];
 }
 
 export class Comment {
-  text: string = '';
+  text = '';
   mark: number;
 }
 

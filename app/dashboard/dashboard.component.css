@@ -1,12 +1,15 @@
-div, h1, p {
+.paragraph-color-box,
+.todo-link,
+.reactive-todo-link,
+.navigation {
   padding: 0 2%;
 }
 
-nav > a:last-child {
+.reactive-todo-link {
   color: #0D47A1;
 }
 
-nav > a:nth-child(1) {
+.todo-link {
   color: lightseagreen;
   margin: 0 2%;
 }

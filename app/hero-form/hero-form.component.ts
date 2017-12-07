@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Location} from '@angular/common';
-
 import {TodoService} from '../services/todo.service';
 
 @Component({
@@ -15,11 +14,12 @@ export class HeroFormComponent {
               private location: Location) {
   }
 
-  onSubmit() {
+  onSubmit(todoForm) {
     this.todoService.createTodo(this.title);
+    todoForm.reset();
   }
 
-  goBack(): void {
+  goBack() {
     this.location.back();
   }
 

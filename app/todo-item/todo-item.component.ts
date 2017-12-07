@@ -8,15 +8,12 @@ import {Todo} from '../services/todo.data';
 })
 export class TodoItemComponent {
 
-  constructor() {
-  }
-
   @Input() todo: Todo;
   @Input() color: string;
-  @Output() delete = new EventEmitter();
-  @Output() toggle = new EventEmitter();
+  @Output() delete = new EventEmitter<Todo>();
+  @Output() toggle = new EventEmitter<Todo>();
 
-  onToggle() {
+  onResolve() {
     this.toggle.emit(this.todo);
   }
 

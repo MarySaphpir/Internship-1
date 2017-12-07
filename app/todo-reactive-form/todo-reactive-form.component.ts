@@ -27,7 +27,10 @@ export class TodoReactiveFormComponent implements OnChanges {
     });
   }
 
-  submit = data => data.toJSON();
+  submit() {
+    console.log(this.todoForm.value);
+    this.todoForm.reset();
+  }
 
   createTodoForm() {
     this.todoForm = this.formBuilder.group({

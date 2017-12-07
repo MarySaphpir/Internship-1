@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/toPromise';
-
 import {Todo} from './todo.data';
 import {todos} from './todo.data.service';
 
 @Injectable()
 export class TodoService {
-  todos: Todo[] = todos;
+  private todos: Todo[] = todos;
 
   getTodos(): Todo[] {
     return this.todos;
@@ -24,11 +22,7 @@ export class TodoService {
     }
   }
 
-  toggleTodo(todo: Todo) {
-    todo.completed = !todo.completed;
-  }
-
-  handleError(error: Error) {
-    return Promise.reject(error.message);
+  resolveTodo(todo: Todo) {
+    todo.completed = true;
   }
 }
