@@ -5,7 +5,7 @@ import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 })
 export class ShowTipsDirective {
 
-  constructor(private el: ElementRef) {
+  constructor(private elementRef: ElementRef) {
   }
 
   @Input('appShowTips') showTips: string;
@@ -21,7 +21,7 @@ export class ShowTipsDirective {
   }
 
   private appShowTips(color: string) {
-    this.el.nativeElement.style.backgroundColor = color;
+    this.elementRef.nativeElement.style.backgroundColor = color;
   }
 
 }
