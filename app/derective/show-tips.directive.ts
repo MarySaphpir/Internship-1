@@ -4,6 +4,7 @@ import {Directive, ElementRef, HostListener, Input} from '@angular/core';
   selector: '[appShowTips]'
 })
 export class ShowTipsDirective {
+  private DEFAULT_COLOR = 'grey';
 
   constructor(private elementRef: ElementRef) {
   }
@@ -12,7 +13,7 @@ export class ShowTipsDirective {
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.appShowTips(this.showTips || 'grey');
+    this.appShowTips(this.showTips || this.DEFAULT_COLOR);
   }
 
   @HostListener('mouseleave')

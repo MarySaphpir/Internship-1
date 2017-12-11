@@ -1,14 +1,15 @@
 <h1> Welcome! </h1>
 <div class="paragraph-color-box">
-  <input type="radio" name="colors" value="lightgreen" (click)="setColor($event)"> Green
-  <input type="radio" name="colors" value="yellow" (click)="setColor($event)">Yellow
-  <input type="radio" name="colors" value="cyan" (click)="setColor($event)">Cyan
-
+  <div class="color-picker" (click)="setColor($event)">
+    <input type="radio" name="colors" value="lightgreen">Green
+    <input type="radio" name="colors" value="yellow">Yellow
+    <input type="radio" name="colors" value="cyan">Cyan
+  </div>
   <p [appShowTips]="color">Highlight me!</p>
 </div>
 
 <nav class="navigation">
   <a routerLink="/todo" class="todo-link"> Todo (template-driven form) </a>
   <a routerLink="/todo-reactive" class="reactive-todo-link"> Reactive todo </a>
-  <a routerLink="/wikipedia-search" class="reactive-todo-link"> wikipedia search </a>
+  <a routerLink="/wikipedia-search" class="reactive-todo-link"> Wikipedia search </a>
 </nav>

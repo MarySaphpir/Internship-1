@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WikipediaSearchService} from '../wikipedia-search.service';
+import {WikipediaSearchService} from '../../services/wikipedia-search.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
