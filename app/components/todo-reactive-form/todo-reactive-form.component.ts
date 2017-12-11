@@ -1,11 +1,10 @@
 import {Component, Input, OnChanges} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {marks, Todo} from '../../services/data-model';
 
 @Component({
   selector: 'todo-reactive-form',
   templateUrl: './todo-reactive-form.component.html',
-  styleUrls: ['./todo-reactive-form.component.css']
 })
 export class TodoReactiveFormComponent implements OnChanges {
   todoForm: FormGroup;
@@ -27,6 +26,11 @@ export class TodoReactiveFormComponent implements OnChanges {
     });
   }
 
+  hasExclamationMark(input: FormControl) {
+    const hasExclamation = input.value.indexOf('!') >= 0;
+    return hasExclamation ? null : { needsExclamation: true };
+  }
+
   submit() {
     console.log(this.todoForm.value);
     this.todoForm.reset();
@@ -34,7 +38,7 @@ export class TodoReactiveFormComponent implements OnChanges {
 
   createTodoForm() {
     this.todoForm = this.formBuilder.group({
-      todoName: ['', Validators.required],
+      todoName: ['', [Validators.required, this.hasExclamationMark]],
       description: this.formBuilder.group({
         completed: false,
         comment: '',
