@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {marks, Todo} from '../../services/data-model';
 import {FormValidator} from './form.validator';
@@ -30,9 +30,10 @@ export class TodoReactiveFormComponent implements OnChanges {
   submit() {
     console.log(this.todoForm.value);
     this.todoForm.reset();
+    // return this.todoForm.value;
   }
 
-  createTodoForm() {
+  createTodoForm(): any {
     this.todoForm = this.formBuilder.group({
       todoName: ['', [Validators.required, this.validator.hasExclamationMark]],
       description: this.formBuilder.group({

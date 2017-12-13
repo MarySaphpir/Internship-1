@@ -19,8 +19,4 @@
   <button (click)="submit()"> submit </button>
 </div>
 
-<div *ngIf="!todoForm.get('todoName').valid"> The form is {{todoForm.get('todoName').status}} </div>
-<div *ngIf="todoForm.get('todoName').hasError('required')"> Name is required </div>
-<div *ngIf="todoForm.get('todoName').touched"> touched </div>
-
 <p>Form value: {{ todoForm.value | json }}</p>

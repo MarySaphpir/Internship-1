@@ -11,16 +11,15 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './wikipedia-search.component.html',
 })
 export class WikipediaSearchComponent implements OnInit {
-  items: Observable<Array<string>>;
+  items: Observable<Object>;
   term = new FormControl();
+  title = 'property for test';
 
   constructor(private wikipediaService: WikipediaSearchService) {
   }
 
   ngOnInit() {
-    this.items = this.term.valueChanges
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .switchMap(term => this.wikipediaService.search(term));
+    this.items =  this.wikipediaService.search('A');
+    console.log(this.items)
   }
 }
